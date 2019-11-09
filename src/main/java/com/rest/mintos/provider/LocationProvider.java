@@ -1,7 +1,7 @@
 package com.rest.mintos.provider;
 
-import java.util.HashMap;
+import com.rest.mintos.api.beans.LocationBean;
 
 public interface LocationProvider {
-    HashMap getLocationByIp(String ipAdress);
+    LocationBean getLocationByIp(String ipAdress);
 }

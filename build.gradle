@@ -14,9 +14,16 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    set('springCloudVersion', "Greenwich.SR3")
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-cache:2.2.0.RELEASE'
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix:2.1.3.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation("org.springframework.boot:spring-boot-starter-web") {
         exclude group: 'org.apache.tomcat.embed'
@@ -25,6 +32,9 @@ dependencies {
     implementation "org.codehaus.groovy:groovy-all:2.5.8"
     implementation 'org.hibernate:hibernate-validator:6.0.17.Final'
     implementation 'org.springframework.boot:spring-boot-starter-undertow'
+    implementation 'org.flywaydb:flyway-core:6.0.8'
+    implementation 'com.github.ben-manes.caffeine:caffeine:2.8.0'
+    
     runtimeOnly 'com.h2database:h2'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
@@ -32,9 +42,16 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation "org.spockframework:spock-core:1.3-groovy-2.5"
     testImplementation "org.spockframework:spock-spring:1.3-groovy-2.5"
+    testImplementation 'com.github.tomakehurst:wiremock-standalone'
 
     annotationProcessor 'org.projectlombok:lombok'
     compileOnly 'org.projectlombok:lombok'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
 }
 
 test {
